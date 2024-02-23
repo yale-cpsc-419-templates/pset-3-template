@@ -1,10 +1,10 @@
 # Pset 3: Web Application (Version 1)
 
-### Due Friday Nov 3 11:59 PM NHT (New Haven Time)
+### Due Friday Mar 8 11:59 PM NHT (New Haven Time)
 
 ## Table of Contents
 - [Pset 3: Web Application (Version 1)](#pset-3-web-application-version-1)
-    - [Due Friday Nov 3 11:59 PM NHT (New Haven Time)](#due-friday-nov-3-1159-pm-nht-new-haven-time)
+    - [Due Friday Mar 8 11:59 PM NHT (New Haven Time)](#due-friday-mar-8-1159-pm-nht-new-haven-time)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
   - [Rules](#rules)
@@ -14,13 +14,14 @@
   - [The Application](#the-application)
   - [Additional Requirements for 519 Students](#additional-requirements-for-519-students)
     - [Required Additional Feature](#required-additional-feature)
-    - [Optional Additional Features](#optional-additional-features)
+    - [Additional Additional Features](#additional-additional-features)
   - [Specific Endpoints](#specific-endpoints)
   - [Error Handling: Bad Server](#error-handling-bad-server)
   - [Error Handling: Bad Client](#error-handling-bad-client)
     - [Invalid search parameters](#invalid-search-parameters)
     - [Invalid `obj_id`](#invalid-obj_id)
     - [Missing `obj_id`](#missing-obj_id)
+    - [Invalid path](#invalid-path)
     - [Aside: Error Pages](#aside-error-pages)
     - [Other invalid requests](#other-invalid-requests)
   - [Source Code Guide](#source-code-guide)
@@ -48,7 +49,7 @@ Your `README` file and your source code files must contain your name and your te
 > **Note**: this section contains exactly the text on the Canvas assignment, reproduced here only for completeness of this document.
 > Since you made it here, you can safely ignore this section.
 
-1. Accept [this GitHub classroom assignment](https://classroom.github.com/a/x4M2JGGT).
+1. Accept [this GitHub classroom assignment](TODO: TBD).
    * Select your team.
      * This step creates a GitHub repository for your team and links your team members' GitHub ids.
    * If you do not have a GitHub account, you are required to create one for this course
@@ -109,22 +110,25 @@ Beyond some [specific endpoints](#specific-endpoints) mentioned below, there are
     These should, respectively, allow the user to specify an object label, a classifier, the name of an agent, and a YUAG department.
   * In addition to the text input fields, your form must include a `submit` input field.
   For this assignment, the submit field must be a button labeled "Search".
-  * The form may contain other input elements, but any additional elements you include in the form must be of the `hidden` type (that is, they must not be visible to the user when they view the webpage).
-  * The form input fields must be filled in with the parameters used to make the most recent query, that is, the values of the input fields as they were upon the most recent submission of the form (if the form has never been submitted, those fields should be empty)
-* After submission the form, the webpage must display an HTML `table` containing no more than the first 1000 results of the query that was triggered by the most recent submission of the form (or nothing at all if the form has not yet been submitted).
+  * The form may contain other input elements, but any additional input elements you include in the form must be of the `hidden` type (that is, they must not be visible to the user when they view the webpage).
+    * Any non-input elements that enchance the look and feel of the webpage are encouraged and of course do not have to be hidden
+  * Whenever this page is loaded, the form input fields must be filled in with the parameters used to make the most recent query, that is, the values of the input fields as they were upon the most recent submission of the form (if the form has never been submitted, those fields should be empty)
+* After the user clicks the "Search" button, the webpage must display an HTML `table` containing no more than the first 1000 results of the query that was triggered by the most recent submission of the form (or nothing at all if there is no most recent submission).
   * If the user entered no text in the form elements, the webpage should display a message such as "No search terms provided. Please enter some search terms."
     > **Note**: This is a change in requirements from previous psets, in which an empty search returned all objects in the database.
-  * The columns displayed in the table must be&mdash;in order&mdash;the object's label, the object's date, the name of each agent that produced this object and the part they produced (in the format `"{agent-name} ({agent-part})"`), and a list of all classifiers for the object, for each object that matches the specified criteria, or of all objects in the database if the user specifies no criteria.
+  * The columns displayed for each object in the table must be&mdash;in order&mdash;the object's label, the object's date, a list of all agents that produced the object and the part they produced, and a list of all classifiers for this object.
   The columns must be labeled "Label", "Date", "Agents", and "Classified As", respectively.
     * The lists of things in the "Agents" and "Classified As" columns must be formatted with one item per line
+    * Some dates are BC dates: they must be displayed as such when appropriate
+    > **Note**: This is a change in requirements from the previous psets, in which there was no requirement to display BC dates correctly
   * The table rows must be _sorted_; the algorithm to sort is the same from Pset 2.
-  * A user must be able to click on the `label` for any of the displayed objects to request more information about that object on a different webpage (the "secondary" page) at the url `"/obj/{object-id}"`.
+  * A user must be able to **click** on the `label` for any of the displayed objects to request more information about that object on a different webpage (the "secondary" page) at the url `"/obj/{object-id}"`.
     The requirements for the secondary webpage are below.
     > **Note**: The object's ID must not be displayed in the table!
-* You application must accept requests to the endpoint `/obj/<int:obj_id>` (where `obj_id` is the ID of the clicked-on object).
-The webpage returned at this endpoint must satisfy the following requirements:
+* Your application must accept requests to the endpoint `/obj/<int:obj_id>` (where `obj_id` is the ID of the clicked-on object).
+The webpage returned by this endpoint (your application's "secondary webpage") must satisfy the following requirements:
   * It must display at least the following information about the selected object:
-    * A section with header "Summary" containing the following pieces of information in a single-row **HTML table**:
+    * A section with header "Summary" containing the following pieces of information, formatted as you like (the solution uses a single-row HTML table):
       * The object's accession number, labeled "Accession no."
       * The object's date, labeled "Date"
       * The object's place, labeled "Place"
@@ -137,13 +141,17 @@ The webpage returned at this endpoint must satisfy the following requirements:
       * "Timespan", containing the *year* of each agent's `begin_date` and the *year* of each agent's `end_date`, separated by a dash or hyphen
         * Some agents are still alive/active; in those cases the Timespan column must contain text such as "1967&ndash;"
         * An agent that has no timespan should have that fact displayed in this column in some reasonable manner
+        * Some dates are BC dates: they should be displayed as such when appropriate
         > **Note**: The table in the "Produced By" section must be sorted in ascending order of agent name, then part, then timespan and finally by nationality.
     * A section with header "Image", containing an image of the object
-      * Some objects do not have images. For those objects, this section must *not* be present in the rendered webpage
+      * The image must be no larger than 800 pixels wide and 600 pixels high
+      * Some objects do not have images. For those objects, this section must *not* be present in the rendered webpage. To check whether an object has an image you should make a request on your server to the image URL; if you do not receive a response (or if you receive an error in response), you know there is no image for that object
+        * We'll improve upon this control flow in Pset 4 when you will be permitted to use Javascript in your webpage, which will enable client-side requests to check validity of links.
       * For objects that *do* have images, you should display the image stored at a URL with the pattern:
         ```
         https://media.collections.yale.edu/thumbnail/yuag/obj/{obj-id}
         ```
+  
     * A section with header "Classified As", containing an **unordered list** of all classifiers for the object, sorted in ascending order of the classifier name
       > **Note**: Despite the name "unordered list" given to the HTML `<ul>` element, the list in this case must be sorted in a particular order.
       > In HTML, an unordered list is simply a list in which the items are not numbered.
@@ -154,11 +162,10 @@ The webpage returned at this endpoint must satisfy the following requirements:
       The list must be sorted first by reference type and then by content.
       > **Note**: Some references contain HTML code verbatim. That HTML must be rendered according to the included elements!
 
-  * Its information must be well-formatted (_e.g._, the headers must be within semantic HTML `<h`*`N`*`>` header elements, and the lists must be within HTML `<ul>` elements)
+  * Its information must be well-formatted (_e.g._, the headers must be within semantic HTML `<h`*`N`*`>` header elements, lists must be within HTML `<ul>` elements, and tables should use `<thead>` and `<tbody>` elements to disinguish between header rows and body rows)
   * It must provide a link back to the primary webpage to allow the user to perform another search.
   The resulting instance of the primary webpage must contain exactly the same content as was most recently displayed on the page before the user clicked the label of an object to retrieve the secondary webpage, including both the results table and filled-in input fields.
-
-    > **Note**: Your application must be *stateful* to accomplish this. 
+    > **Note**: Your application must be *stateful* to accomplish this, and in particular this pset requires the use of **cookies** for state-tracking.
     > Review the lecture slides and demo code on how to create a stateful web application using cookies.
 
 ---
@@ -167,10 +174,11 @@ The webpage returned at this endpoint must satisfy the following requirements:
 If you *or your partner* are enrolled in CPSC 519, your application must satisfy all of the above requirements and you must implement some of the following features.
 
 If at least one member of your team is enrolled in CPSC 519, you are required to implement label-editing functionality (the [Required Additional Feature](#required-additional-feature)).
-If both members of your team are enrolled in CPSC 519, you are *also* required to implement at least one of the [Optional Additional Features](#optional-additional-features-implement-at-least-one).
+If both members of your team are enrolled in CPSC 519, you are *also* required to implement at least one of the [Additional Additional Features](#additional-additional-features).
 
 Even if you and your partner are in 419 and not 519, you are more than welcome to attempt these activities.
 They will not have any bearing on your grade for this assignment, but they will provide valuable experience in adding features to a webpage that may prove useful in developing your final project.
+(And at least one of them is a required feature for Pset 4!)
 
 ### Required Additional Feature
 
@@ -183,28 +191,30 @@ The server must accept this `POST` request at the endpoint `/obj/<int:obj-id>`.
 
 > **Note**: This is the same endpont as the secondary webpage; the only difference is the HTTP method associated with the request: in this case, that method is `POST`; in the other, it is `GET`.
 
-### Optional Additional Features
+### Additional Additional Features
 
 If you *and your partner* are both enrolled in CPSC 519, you must implement at least one of the following additional features.
 
-2. The default styling of an HTML table is quite ugly in most browsers.
+1. The default styling of an HTML table is quite ugly in most browsers.
 Use CSS to spruce up your tables:
    * Add padding of `5px` to all sides of every cell in each table
    * Add a `1px` wide `gray` border between rows of each table
    * When the mouse hovers over a particular row of each table, change that row's background color to `lightgray`
    * You are free to style your application in any other manner that looks good to you (but nothing else is required)
    * Place your CSS into a file named `styles.css` that is loaded by your primary and secondary webpages, but not included directly in those pages
-3. On the primary page, add a button or link labeled "Clear Previous Search" that, when clicked, displays the primary page with empty input fields and no table of results.
+2. On the primary page, add a button or link labeled "Clear Previous Search" that, when clicked, displays the primary page with empty input fields and no table of results.
 It must be the case that clicking the button or link causes any stored state to be reset to an initial or empty state, including any state local to the browser (such as cookies) and any state stored on the server.
+The endpoint for this feature must be `/reset`.
 
 ---
 ## Specific Endpoints
 
 There are three endpoints to which your application must respond:
-1. `/` must return the primary page
+1. `/` must return the primary page, with the input fields filled in having the values of the most recent search query
+  * If the user has previously made a search query, the table containing the results of the most recent query must be displayed on this page
 2. `/search?...` must return the results of a search using the parameters in the query string (that is, those that the user entered on the primary page).
    * The parameters accepted by the `/search` endpoint must be `l` (for the label), `a` (for the agent name), `c` (for the classifiers), and `d` (for the date)
-3. `/obj/<int:obj_id>` must return the secondary page populated with information about the object with the `id` provided in the query string.
+3. `/obj/<int:obj_id>` must return the secondary page populated with information about the object with the `obj_id` provided in the query string.
 
 Students completing the [additional 519 activities](#additional-requirements-for-519-students) must add endpoints to accomplish some of those tasks, and the specifics are indicated above.
 
@@ -212,7 +222,7 @@ Students completing the [additional 519 activities](#additional-requirements-for
 ## Error Handling: Bad Server
 
 Since you control the machine that is running both the server application and the database, there is not much we will force you to worry about for server-side errors.
-There are, however, two errors that your program must handle gracefully.
+There are, however, two errors that your program must handle gracefully:
 1. The server is started with a port that is not a positive integer.
 If the server is started with a command such as `$ python runserver.py notaport`, it should display a meaningful error message and exit.
 1. The database file does not exist.
@@ -228,7 +238,7 @@ Specifically...
 
 ### Invalid search parameters
 
-If the user requests a page at a URL such as `http://yourserver:80/search?foo=bar`&mdash;in which the parameters to a search request are not one of `l`, `a`, `c`, or `d`&mdash;your application must treat those parameters as not existing.
+If the user requests a page at a URL such as `http://yourserver:80/search?foo=bar`&mdash;in which some parameters to a search request are not one of `l`, `a`, `c`, or `d`&mdash;your application must treat those parameters as not existing.
 For example, in response to a request to the URL `http://yourserver:80/search?foo=bar&a=gogh`, your server must produce a webpage containing results of a search for objects with agent name containing `gogh`.
 
 ### Invalid `obj_id`
@@ -236,15 +246,20 @@ For example, in response to a request to the URL `http://yourserver:80/search?fo
 If the user requests a page at a URL such as `http://yourserver:80/obj/gobbeldygook`&mdash;in which the object ID value does not appear in the database&mdash;the server must return an appropriate error page as HTML that displays, at a minimum, text that reads "Error: no object with id gobbeldygook exists". (The "gobbeldygook" part should, of course, be replaced with the actual nonexistent id that was queried.)
 This page must be returned with status code 404 (not found).
 
-Your application must respond with this error page for *any* missing crn, including numeric and non-numeric crns.
+Your application must respond with this error page for *any* missing object id, including numeric and non-numeric ids.
 
 ### Missing `obj_id`
 
 If the user requests a page at a URL such as `http://yourserver:80/obj` (that is, missing a `obj_id`), the application must return an appropriate error page as HTML that displays, at a minimum, text that reads "Error: missing object id." and status code 404 (not found).
 
+### Invalid path
+
+If the user requests a page at a URL such as `http://yourserver:80/notapath`&mdash;in which the path is not a path your server is programmed to respond to&mdash;the server must return an error page as HTML that displays, at a minimum, text that reads "Error: invalid URL".
+This page must be returned with status code 404 (not found).
+
 ### Aside: Error Pages
 
-Your error page must have some required content, but it should not live at a special URL.
+Your error page must have some special content, but it should not live at a special URL.
 That is, your application should behave in a similar manner as Google when an invalid page is requested, such as `google.com/notreal`.
 The page displayed should clearly indicate an error occurred, but the URL in the browser should remain `google.com/notreal`: it *should not* be some other URL, such as `google.com/404`.
 
@@ -253,10 +268,9 @@ The page displayed should clearly indicate an error occurred, but the URL in the
 There are many other requests that the user could send that are "wrong", such as:
 
 * `http://yourserver:notyourport/`
-* `http://yourserver:80/notyourapp`
 * `http://yourserver:80/search?not/well/formed/url`
 
-The only requirement placed on your server in these cases (and similar ones) is that it does not crash when queried with such requests; that is, if the user sends a valid request immediately after an invalid one, the valid request must get the correct result.
+In these cases, the request will not even reach your server application, so there is nothing you need to do (or, indeed, even *could* do) in response.
 
 ---
 ## Source Code Guide
@@ -268,10 +282,7 @@ Here are the **requirements** for the source code of your solution.
 * Your application program must use SQL prepared statements for every database query.
 (This protects the database against SQL injection attacks.)
 * Use cookies to keep track of the application's state
-* Any display of user-entered content on your webpage must be **escaped** before display. This prevents XSS (cross-site-scripting) attacks
-
-Here are some **recommendations** for the source code of your solution.
-
+* Any display of user-entered content (such as search terms or an invalid URL) on your webpage must be **escaped** before display. This prevents XSS (cross-site-scripting) attacks
 * Reuse code from your solution to Pset 2 in this assignment.
 * Modularize your application program so that database communication code is cleanly separated from response production code.
     * Use HTML templates to keep your repsonse production code as clear as possible
@@ -309,7 +320,7 @@ There must be at least the following files with the following (exact) names in t
 Ensure that any additional files needed by your program (such as other Python modules or HTML files) are in the repository snapshot captured by the release.
 The one exception to this, as has been the case all semester, is that `lux.sqlite` should *not* be included in your repository.
 
-> **Note**: If you have installed external packages, you must also include a file named `requirements.txt` containing the dependencies of your project.
+> **Note**: If you have installed external packages beyond flask, you must also include a file named `requirements.txt` containing the dependencies of your project.
 > It can be created from your virtual environment by running the following command:
 > ```
 > $ pip freeze -r requirements.txt
@@ -329,7 +340,7 @@ Thanks.
 
 ### Late Submissions
 
-The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Friday Nov 3, 2022**.
+The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Friday Mar 8, 2024**.
 There is a strict 15 minute grace period beyond the deadline, to be used in case of technical or administrative difficulties, and not for putting final touches on your solution.
 (If you can do it in as little as 15 minutes, it probably is insignificant enough not to change your grade.)
 
@@ -346,7 +357,8 @@ Your grade will be based upon:
 
 * Correctness, that is, how closely your programs conform to the specifications in this document.
 * Style, that is, the quality of your program style. This includes not only style as qualitatively assessed by the graders (including modularity, cleanliness, and algorithmic efficiency) but also style as reported by the pylint tool, using the default settings, and when executed via the command `python -m pylint **/*.py`.
-    * Ten percent of your grade will be based upon the quality of your program style as reported by pylint. Your grader will start with the 10-point score reported by pylint. Your pylint style grade is your pylint score rounded up to the next integer (minimum 0). For example, if your pylint score is 9.1, then your pylint style grade will be 10; if your pylint score is 7.7, then your pylint style grade will be 8.
+    * We will ignore any of the starter code that you were given (such as `table.py` from psets 1/2) in this assessment.
+    * Any pylint warnings should be written about (briefly) in your submitted README document. If you believe that your solution is the right one despite pylint warning you about it, you should make such an argument and if we accept it the style penalty will be waived for that warning 
 
 If your code fails the tests on some particular functionality, your grader will inspect your code manually to try to assign partial credit for that functionality.
 Partial credit will be given only if there is an *obvious* "quick fix" (*e.g.*, you have accidentally changed the name of the database file and your solution points to a file with a name that does not match the grader's copy of the database); if no such quick fix exists then no partial credit for that feature will be given.
@@ -355,4 +367,4 @@ Partial credit will be given only if there is an *obvious* "quick fix" (*e.g.*, 
 
 Adapted from Assignment 3 for COS 333 &copy;2021 by Robert M. Dondero, Jr., Princeton university
 
-Modified &copy;2023 by Alan Weide, Yale University
+Modified &copy;2024 by Alan Weide, Yale University
