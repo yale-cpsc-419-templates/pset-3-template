@@ -106,8 +106,8 @@ Your `runserver.py` must run an instance of the Flask test server on the specifi
 When a client makes an HTTP request to the server, your application must return an HTML webpage appropriate to the request.
 Beyond some [specific endpoints](#specific-endpoints) mentioned below, there are several requirements your application must satisfy:
 * Your application's **primary web page** (*i.e.*, the webpage returned by a request to the server's root&mdash;*e.g.* `http://yourserver:80/` if your server is listening on port 80) must contain an **HTML form**.
-  * The form must include four text input fields labeled "Label", "Classifier", "Agent" and "Department".
-    These should, respectively, allow the user to specify an object label, a classifier, the name of an agent, and a YUAG department.
+  * The form must include four text input fields labeled "Label", "Classifier", "Agent" and "Date".
+    These should, respectively, allow the user to specify an object label, a classifier, the name of an agent, and object date.
   * In addition to the text input fields, your form must include a `submit` input field.
   For this assignment, the submit field must be a button labeled "Search".
   * The form may contain other input elements, but any additional input elements you include in the form must be of the `hidden` type (that is, they must not be visible to the user when they view the webpage).
