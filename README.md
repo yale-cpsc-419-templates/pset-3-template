@@ -1,10 +1,10 @@
 # Pset 3: Web Application (Version 1)
 
-### Due Friday Mar 8 11:59 PM NHT (New Haven Time)
+### Due Friday Mar 7 11:59 PM NHT (New Haven Time)
 
 ## Table of Contents
 - [Pset 3: Web Application (Version 1)](#pset-3-web-application-version-1)
-    - [Due Friday Mar 8 11:59 PM NHT (New Haven Time)](#due-friday-mar-8-1159-pm-nht-new-haven-time)
+    - [Due Friday Mar 7 11:59 PM NHT (New Haven Time)](#due-friday-mar-7-1159-pm-nht-new-haven-time)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
   - [Rules](#rules)
@@ -49,7 +49,7 @@ Your `README` file and your source code files must contain your name and your te
 > **Note**: this section contains exactly the text on the Canvas assignment, reproduced here only for completeness of this document.
 > Since you made it here, you can safely ignore this section.
 
-1. Accept [this GitHub classroom assignment](TODO: TBD).
+1. Accept the GitHub Classroom assignment.
    * Select your team.
      * This step creates a GitHub repository for your team and links your team members' GitHub ids.
    * If you do not have a GitHub account, you are required to create one for this course
@@ -340,14 +340,14 @@ Thanks.
 
 ### Late Submissions
 
-The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Friday Mar 8, 2024**.
+The deadline for this assignment is **11:59 PM NHT (New Haven Time) on Friday Mar 7, 2025**.
 There is a strict 15 minute grace period beyond the deadline, to be used in case of technical or administrative difficulties, and not for putting final touches on your solution.
 (If you can do it in as little as 15 minutes, it probably is insignificant enough not to change your grade.)
 
 Late submissions will receive a 5% deduction for every 12-hour period (or part thereof) after the deadline.
-After 72 hours, the Canvas assignment will close and submissions after that time will not receive any credit.
+After 48 hours, the Canvas assignment will close and submissions after that time will not receive any credit.
 
-Except for submissions after the 72-hour deadline (*which are not accepted*), the timestamp on the commit associated with the linked release will determine what late penalties, if any, are applied.
+Except for submissions after the 48-hour deadline (*which are not accepted*), the timestamp on the commit associated with the linked release will determine what late penalties, if any, are applied.
 
 ---
 
@@ -367,4 +367,4 @@ Partial credit will be given only if there is an *obvious* "quick fix" (*e.g.*, 
 
 Adapted from Assignment 3 for COS 333 &copy;2021 by Robert M. Dondero, Jr., Princeton university
 
-Modified &copy;2024 by Alan Weide, Yale University
+Modified &copy;2025 by Alan Weide, Yale University
