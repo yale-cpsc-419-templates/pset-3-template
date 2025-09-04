@@ -1,10 +1,10 @@
 # Pset 3: Web Application (Version 1)
 
-### Due Friday Mar 7 11:59 PM NHT (New Haven Time)
+### Due Friday Oct 31 10:59 PM NHT (New Haven Time)
 
 ## Table of Contents
 - [Pset 3: Web Application (Version 1)](#pset-3-web-application-version-1)
-    - [Due Friday Mar 7 11:59 PM NHT (New Haven Time)](#due-friday-mar-7-1159-pm-nht-new-haven-time)
+    - [Due Friday Oct 31 10:59 PM NHT (New Haven Time)](#due-friday-mar-7-1159-pm-nht-new-haven-time)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
   - [Rules](#rules)
