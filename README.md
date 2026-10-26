@@ -1,11 +1,11 @@
 # Pset 3: Web Application (Version 1)
 
-### Due Friday Oct 31 10:59 PM NHT (New Haven Time)
+### Due Friday Nov 6 10:59 PM NHT (New Haven Time)
 
 ## Table of Contents
 
 - [Pset 3: Web Application (Version 1)](#pset-3-web-application-version-1)
-  - [Due Friday Oct 31 10:59 PM NHT (New Haven Time)](#due-friday-oct-31-1059-pm-nht-new-haven-time)
+  - [Due Friday Nov 6 10:59 PM NHT (New Haven Time)](#due-friday-nov-6-1059-pm-nht-new-haven-time)
   - [Table of Contents](#table-of-contents)
   - [Purpose](#purpose)
   - [Rules](#rules)
@@ -365,7 +365,7 @@ Ensure that any additional files needed by your program (such as other Python mo
 >
 > Failure to include a `requirements.txt` file if you use third-party packages will result in an automatic 5% penalty and a request that you submit an appropriate `requirements.txt` file to the graders.
 
-Submit your solution to Canvas (in the assignment named "Web Version A") as [a link to that release](https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases).
+Submit your solution to Canvas (in the assignment named "Pset 3: Web Version 1") as [a link to that release](https://docs.github.com/en/repositories/releasing-projects-on-github/linking-to-releases).
 
 As noted above in the [Rules](#rules) section, it must be the case that either you submit all of your team’s files or your teammate submits all of your team’s files.
 (It must not be the case that you submit some of your team’s files and your teammate submits some of your team’s files.)
@@ -377,9 +377,8 @@ Thanks.
 
 ### Late Submissions
 
-The deadline for this assignment is **10:59 PM NHT (New Haven Time) on Friday Oct 31**.
-There is a strict 15 minute grace period beyond the deadline, to be used in case of technical or administrative difficulties, and not for putting final touches on your solution.
-(If you can do it in as little as 15 minutes, it probably is insignificant enough not to change your grade.)
+The deadline for this assignment is **10:59 PM NHT (New Haven Time) on Friday Nov 6**.
+There is a strict 1-hour grace period beyond the deadline, to be used in case of technical or administrative difficulties, and not for putting final touches on your solution.
 
 Late submissions will receive a 5% deduction for every 12-hour period (or part thereof) after the deadline.
 After 48 hours, the Canvas assignment will close and submissions after that time will not receive any credit.
